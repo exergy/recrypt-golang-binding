@@ -5,7 +5,22 @@ TODO
 
 ## Test
 
-    go test
+    make test
+
+
+## Build
+
+[lib/recrypt-rs/src](lib/recrypt-rs/src) contains the Rust source [IronCoreLabs/recrypt-rs](https://github.com/IronCoreLabs/recrypt-rs). Invoking the library is done via CGO.
+
+`make library` - compile the Rust library and copy the .so file to the lib directory
+
+`make build` - build the Go binary
+
+`make all` - perform all the above mentioned tasks
+
+`make run` - execute the binary
+
+`make clean` - clean the build files
 
 
 ## Notes

@@ -1,5 +1,11 @@
 package recrypt
 
+/*
+#cgo LDFLAGS: -L./lib -lhello
+#include "./lib/hello.h"
+*/
+import "C"
+
 import "bytes"
 
 type PublicKey bytes.Buffer
@@ -60,4 +66,8 @@ func (a Api256) encrypt(plaintext Plaintext, toPublicKey PublicKey, privateSigni
 
 func (a Api256) decrypt(encryptedValue EncryptedValue, privateKey PrivateKey) EncryptedValue {
 	return EncryptedValue{}
+}
+
+func doThatRustThing() {
+	C.hello(C.CString("Gopher"))
 }

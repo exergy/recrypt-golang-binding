@@ -16,4 +16,6 @@ func TestRecrypt(t *testing.T) {
 	t.Log(plaintext)
 	t.Log(encryptedValue)
 	t.Log(decryptedValue)
+
+	doThatRustThing()
 }
