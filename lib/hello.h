@@ -2,4 +2,4 @@
 #include <stdint.h>
 
 void hello(char *name);
-uint8_t* generate_key_pair();
+char* generate_key_pair();

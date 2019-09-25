@@ -2,6 +2,7 @@ extern crate libc;
 extern crate recrypt;
 use std::ffi::CStr;
 use recrypt::prelude::*;
+use std::mem;
 
 #[repr(C)]
 pub struct CPublicKey {
@@ -42,10 +43,9 @@ pub extern "C" fn hello(name: *const libc::c_char) {
 // }
 
 #[no_mangle]
-pub extern "C" fn generate_key_pair() -> *const [u8] {
+pub extern "C" fn generate_key_pair() -> *const char {
     let recrypt = Recrypt::new();
     let (priv_key, _) = recrypt.generate_key_pair().unwrap();
 
-    println!("A big hello from Rust to {:?}!", priv_key.bytes());
-    priv_key.bytes()
+    &(priv_key.bytes()[0] as char)
 }
