@@ -74,7 +74,7 @@ func doThatRustThing() {
 }
 
 func doThatOtherThing() {
-	C.hello(C.CString("Gopher"))
+	C.generate_key_pair()
 	// first := *buf[0]
 	// fmt.Println(first)
 	fmt.Println("HERE")
