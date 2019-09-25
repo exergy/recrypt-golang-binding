@@ -1,7 +1,6 @@
 extern crate libc;
 extern crate recrypt;
 use std::ffi::CStr;
-use std::os::raw::c_char;
 use recrypt::prelude::*;
 
 #[repr(C)]
@@ -43,14 +42,10 @@ pub extern "C" fn hello(name: *const libc::c_char) {
 // }
 
 #[no_mangle]
-pub extern "C" fn generate_key_pair() -> *const c_char {
+pub extern "C" fn generate_key_pair() -> *const [u8] {
     let recrypt = Recrypt::new();
     let (priv_key, _) = recrypt.generate_key_pair().unwrap();
-    // *priv_key.bytes()
 
-    // let wut = unsafe {
-    //     CStr::from_bytes_with_nul(priv_key.bytes());
-    // };
-    //
-    CStr::from_bytes_with_nul(priv_key.bytes()).unwrap().as_ptr()
+    println!("A big hello from Rust to {:?}!", priv_key.bytes());
+    priv_key.bytes()
 }

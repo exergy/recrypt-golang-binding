@@ -8,6 +8,7 @@ import "C"
 
 import "bytes"
 import "fmt"
+import "unsafe"
 
 type PublicKey bytes.Buffer
 type PrivateKey bytes.Buffer
@@ -74,7 +75,10 @@ func doThatRustThing() {
 }
 
 func doThatOtherThing() {
-	C.generate_key_pair()
+	val, _ := C.generate_key_pair()
+	val1 := unsafe.Pointer(val)
+
+	fmt.Println(C.GoString((*C.char)(val1)))
 	// first := *buf[0]
 	// fmt.Println(first)
 	fmt.Println("HERE")
