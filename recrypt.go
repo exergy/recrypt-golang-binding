@@ -1,6 +1,11 @@
 package recrypt
 
-import "bytes"
+import (
+	"bytes"
+	"fmt"
+	wasm "github.com/wasmerio/go-ext-wasm/wasmer"
+	"reflect"
+)
 
 type PublicKey bytes.Buffer
 type PrivateKey bytes.Buffer
@@ -35,6 +40,55 @@ type EncryptedValue struct {
 }
 
 type Api256 struct{}
+
+// -----------------------------------------------------------------------------
+
+func doop() {
+	// Reads the WebAssembly module as bytes.
+	bytes, _ := wasm.ReadBytes("recrypt_wasm_binding.wasm")
+
+	// Instantiates the WebAssembly module.
+	instance, _ := wasm.NewInstance(bytes)
+	defer instance.Close()
+
+	// for k := range instance.Exports {
+	// 	// fmt.Printf("key[%s] value[%s]\n", k, v)
+	// 	fmt.Printf("key[%s]", k)
+	// }
+
+	fmt.Println(reflect.ValueOf(instance.Exports).MapKeys())
+
+	// fmt.Printf("%v", instance)
+
+	// result, err := instance.Exports["Api256"]
+	//
+	// fmt.Println(err)
+	// fmt.Println(result)
+
+	// api, _ := Api256()
+
+	// return api
+
+	// fmt.Println(err)
+	// fmt.Println(api)
+
+	// fmt.Printf("%T", Api256)
+	// fmt.Printf("%T", api)
+
+	// Api256 := instance.Exports["Api256"]
+	// api, _ := Api256()
+	//
+	// fmt.Println(api)
+
+	// // Gets the `sum` exported function from the WebAssembly instance.
+	// sum := instance.Exports["sum"]
+	//
+	// // Calls that exported function with Go standard values. The WebAssembly
+	// // types are inferred and values are casted automatically.
+	// result, _ := sum(5, 37)
+	//
+	// fmt.Println(result) // 42!
+}
 
 // -----------------------------------------------------------------------------
 
