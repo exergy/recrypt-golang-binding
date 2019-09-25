@@ -7,6 +7,7 @@ package recrypt
 import "C"
 
 import "bytes"
+import "fmt"
 
 type PublicKey bytes.Buffer
 type PrivateKey bytes.Buffer
@@ -72,13 +73,13 @@ func doThatRustThing() {
 	C.hello(C.CString("Gopher"))
 }
 
-//func doThatOtherThing() {
-//	C.hello(C.CString("Gopher"))
-//	// first := *buf[0]
-//	// fmt.Println(first)
-//	fmt.Println("HERE")
-//	// fmt.Println(C.GoString(buf))
-//	// reflect.TypeOf(tst3)
-//	// fmt.Println(buf)
-//	//fmt.Println(reflect.TypeOf(buf))
-//}
+func doThatOtherThing() {
+	C.hello(C.CString("Gopher"))
+	// first := *buf[0]
+	// fmt.Println(first)
+	fmt.Println("HERE")
+	// fmt.Println(C.GoString(buf))
+	// reflect.TypeOf(tst3)
+	// fmt.Println(buf)
+	//fmt.Println(reflect.TypeOf(buf))
+}

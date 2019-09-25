@@ -18,5 +18,5 @@ func TestRecrypt(t *testing.T) {
 	t.Log(decryptedValue)
 
 	doThatRustThing()
-	//doThatOtherThing()
+	doThatOtherThing()
 }
