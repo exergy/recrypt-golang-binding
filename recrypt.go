@@ -7,6 +7,8 @@ package recrypt
 import "C"
 
 import "bytes"
+import "fmt"
+import "reflect"
 
 type PublicKey bytes.Buffer
 type PrivateKey bytes.Buffer
@@ -70,4 +72,15 @@ func (a Api256) decrypt(encryptedValue EncryptedValue, privateKey PrivateKey) En
 
 func doThatRustThing() {
 	C.hello(C.CString("Gopher"))
+}
+
+func doThatOtherThing() {
+	buf, _ := C.generate_key_pair()
+	// first := *buf[0]
+	// fmt.Println(first)
+	fmt.Println("HERE")
+	// fmt.Println(C.GoString(buf))
+	// reflect.TypeOf(tst3)
+	// fmt.Println(buf)
+	fmt.Println(reflect.TypeOf(buf))
 }

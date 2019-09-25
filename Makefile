@@ -13,7 +13,7 @@ build:
 
 test: library
 	cp lib/hello/target/release/libhello.so ./lib
-	go test -ldflags="-r $(ROOT_DIR)lib"
+	go test -v -ldflags="-r $(ROOT_DIR)lib"
 
 all: library build
 

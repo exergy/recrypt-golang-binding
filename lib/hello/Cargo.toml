@@ -7,3 +7,4 @@ crate-type = ["cdylib"]
 
 [dependencies]
 libc = "0.2.2"
+recrypt = "0.8.2"
