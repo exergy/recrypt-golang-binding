@@ -8,12 +8,18 @@ import "C"
 
 import "bytes"
 import "fmt"
+import "unsafe"
 
-type PublicKey bytes.Buffer
-type PrivateKey bytes.Buffer
-type PublicSigningKey bytes.Buffer
-type PrivateSigningKey bytes.Buffer
-type Plaintext bytes.Buffer
+// type PublicKey bytes.Buffer
+type PrivateKey []byte
+type PublicSigningKey []byte
+type PrivateSigningKey []byte
+type Plaintext []byte
+
+type PublicKey struct {
+  x []byte
+  y []byte
+}
 
 type KeyPair struct {
 	publicKey  PublicKey
@@ -50,15 +56,37 @@ func NewApi256() Api256 {
 }
 
 func (a Api256) generateKeyPair() KeyPair {
-	return KeyPair{}
+	keypair_pt := C.generate_keypair()
+
+  publicKey := PublicKey {
+      x: C.GoBytes(unsafe.Pointer(&keypair_pt.public_key.x), 32),
+      y: C.GoBytes(unsafe.Pointer(&keypair_pt.public_key.y), 32),
+  }
+
+  privateKey := C.GoBytes(unsafe.Pointer(&keypair_pt.private_key), 32)
+
+	return KeyPair {
+		publicKey,
+		privateKey,
+	}
 }
 
 func (a Api256) generateEd25519KeyPair() SigningKeyPair {
-	return SigningKeyPair{}
+  keypair_pt := C.generate_ed25519_keypair()
+
+  publicKey := C.GoBytes(unsafe.Pointer(&keypair_pt.public_key), 32)
+  privateKey := C.GoBytes(unsafe.Pointer(&keypair_pt.private_key), 64)
+
+  return SigningKeyPair{
+    publicKey,
+    privateKey,
+  }
 }
 
 func (a Api256) generatePlaintext() Plaintext {
-	return Plaintext{}
+  plaintext_pt := C.generate_plaintext()
+  plaintext := C.GoBytes(unsafe.Pointer(&plaintext_pt.bytes), 384)
+	return plaintext
 }
 
 func (a Api256) encrypt(plaintext Plaintext, toPublicKey PublicKey, privateSigningKey PrivateSigningKey) EncryptedValue {
